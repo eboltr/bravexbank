@@ -4,21 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRAVEX BANK — Fearless DeFi Banking | bravexbank.com</title>
-    <meta name="description" content="BRAVEX BANK — fearless DeFi banking. Launching 25 July 2025." />
+    <title>Bravex Bank — Fearless DeFi Banking</title>
+    <meta name="description" content="Bravex Bank — fearless DeFi banking. Launching 25 July 2025." />
     <link rel="canonical" href="https://bravexbank.com/" />
-    <!-- Open Graph / social -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bravexbank.com/" />
-    <meta property="og:title" content="BRAVEX BANK — Fearless DeFi Banking" />
-    <meta property="og:description" content="Launching 25 July 2025. Join the fearless future of decentralized banking." />
-    <meta property="og:image" content="/og_banner.png" />
     <style>
       :root {
-        --bg: #0e0f12;
-        --accent: #ff7a00;
+        --bg: #0d1117;
+        --accent: #ffb22e;
         --text: #f5f5f7;
-        --font-head: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        --font-head: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        --card-bg: #161b22;
       }
       html, body {
         margin: 0;
@@ -34,76 +29,79 @@
       .wrapper {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        max-width: 560px;
+        align-items: center;
+        gap: 1.5rem;
+        max-width: 720px;
         padding: 2rem;
       }
-      h1 {
-        font-size: 3rem;
-        margin: 0;
-        letter-spacing: 0.05rem;
+      .logo { max-width: 280px; width: 60%; height: auto; }
+      .timer { font-size: 2.25rem; font-weight: 600; color: var(--accent); }
+      .tagline { font-size: 1rem; color: #c9c9cd; }
+      .founders { font-size: 0.85rem; color: #8a8a8e; }
+      .grid { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        min-width: 150px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       }
-      h2 {
-        font-size: 1.25rem;
-        font-weight: 400;
-        margin: 0;
-        color: #c4c4c7;
-      }
-      .timer {
-        font-size: 2.5rem;
-        font-weight: 600;
-        color: var(--accent);
-        letter-spacing: 0.05em;
-      }
-      .tagline {
-        font-size: 1rem;
-        color: #97979b;
-        margin-top: 1rem;
-      }
-      @media (max-width: 480px) {
-        h1 { font-size: 2.2rem; }
+      .card h3 { margin: 0; font-size: 0.9rem; font-weight: 500; color: #c9c9cd; }
+      .value { margin-top: 0.35rem; font-size: 1.4rem; font-weight: 600; color: var(--accent); }
+      @media (max-width: 480px){
         .timer { font-size: 2rem; }
+        .card { min-width: 120px; padding: 0.8rem; }
+        .value { font-size: 1.2rem; }
       }
     </style>
   </head>
   <body>
     <div class="wrapper">
-      <h1>BRAVEX&nbsp;BANK</h1>
-      <h2>The fearless future of DeFi banking</h2>
+      <img src="/bravex_logo.png" alt="Bravex Bank logo" class="logo" />
       <div id="countdown" class="timer">00d 00h 00m 00s</div>
-      <div class="tagline">Launching 25&nbsp;July 2025 • bravexbank.com</div>
+      <div class="tagline">Launching 25&nbsp;July&nbsp;2025</div>
+      <div class="grid" id="crypto-grid">
+        <div class="card"><h3>Bitcoin (BTC)</h3><div id="btc" class="value">—</div></div>
+        <div class="card"><h3>Ethereum (ETH)</h3><div id="eth" class="value">—</div></div>
+      </div>
+      <div class="grid" id="fiat-grid">
+        <div class="card"><h3>USD ➜ TRY</h3><div id="usdtry" class="value">—</div></div>
+        <div class="card"><h3>EUR ➜ TRY</h3><div id="eurtry" class="value">—</div></div>
+      </div>
+      <div class="founders">Основатель: Valiyev Elbagi</div>
     </div>
-
     <script>
-      // Target launch date: 25 July 2025 00:00:00 (Europe/Istanbul, UTC+3)
       const launchDate = new Date('2025-07-25T00:00:00+03:00').getTime();
-
-      const el = document.getElementById('countdown');
-
-      function updateTimer() {
-        const now = Date.now();
-        const diff = launchDate - now;
-
-        if (diff <= 0) {
-          el.textContent = 'We are live!';
-          clearInterval(interval);
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        el.textContent = `${days.toString().padStart(2, '0')}d ${hours
-          .toString()
-          .padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds
-          .toString()
-          .padStart(2, '0')}s`;
+      const countdownEl = document.getElementById('countdown');
+      function updateCountdown(){
+        const diff = launchDate - Date.now();
+        if(diff <= 0){ countdownEl.textContent = 'We are live!'; clearInterval(ctInt); return; }
+        const d=Math.floor(diff/864e5), h=Math.floor(diff/36e5)%24, m=Math.floor(diff/6e4)%60, s=Math.floor(diff/1e3)%60;
+        countdownEl.textContent = `${d.toString().padStart(2,'0')}d ${h.toString().padStart(2,'0')}h ${m.toString().padStart(2,'0')}m ${s.toString().padStart(2,'0')}s`;
       }
-
-      updateTimer();
-      const interval = setInterval(updateTimer, 1000);
+      updateCountdown(); const ctInt=setInterval(updateCountdown,1000);
+      async function fetchCrypto(){
+        try{
+          const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+          const j = await r.json();
+          document.getElementById('btc').textContent = `$${j.bitcoin.usd.toLocaleString()}`;
+          document.getElementById('eth').textContent = `$${j.ethereum.usd.toLocaleString()}`;
+        }catch(e){console.error(e)}
+      }
+      fetchCrypto(); setInterval(fetchCrypto,60000);
+      async function fetchFiat(){
+        try{
+          const r = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=TRY');
+          const j = await r.json();
+          document.getElementById('usdtry').textContent = `${j.rates.TRY.toFixed(2)}`;
+        }catch(e){ console.error(e); }
+        try{
+          const r2 = await fetch('https://api.exchangerate.host/latest?base=EUR&symbols=TRY');
+          const j2 = await r2.json();
+          document.getElementById('eurtry').textContent = `${j2.rates.TRY.toFixed(2)}`;
+        }catch(e){ console.error(e); }
+      }
+      fetchFiat(); setInterval(fetchFiat, 1800000);
     </script>
   </body>
 </html>
