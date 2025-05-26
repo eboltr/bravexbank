@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BRAVEX BANK — Fearless DeFi Banking | bravexbank.com</title>
+    <meta name="description" content="BRAVEX BANK — fearless DeFi banking. Launching 25 July 2025." />
+    <link rel="canonical" href="https://bravexbank.com/" />
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bravexbank.com/" />
+    <meta property="og:title" content="BRAVEX BANK — Fearless DeFi Banking" />
+    <meta property="og:description" content="Launching 25 July 2025. Join the fearless future of decentralized banking." />
+    <meta property="og:image" content="/og_banner.png" />
+    <style>
+      :root {
+        --bg: #0e0f12;
+        --accent: #ff7a00;
+        --text: #f5f5f7;
+        --font-head: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      }
+      html, body {
+        margin: 0;
+        height: 100%;
+        font-family: var(--font-head);
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        max-width: 560px;
+        padding: 2rem;
+      }
+      h1 {
+        font-size: 3rem;
+        margin: 0;
+        letter-spacing: 0.05rem;
+      }
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 400;
+        margin: 0;
+        color: #c4c4c7;
+      }
+      .timer {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+      }
+      .tagline {
+        font-size: 1rem;
+        color: #97979b;
+        margin-top: 1rem;
+      }
+      @media (max-width: 480px) {
+        h1 { font-size: 2.2rem; }
+        .timer { font-size: 2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>BRAVEX&nbsp;BANK</h1>
+      <h2>The fearless future of DeFi banking</h2>
+      <div id="countdown" class="timer">00d 00h 00m 00s</div>
+      <div class="tagline">Launching 25&nbsp;July 2025 • bravexbank.com</div>
+    </div>
+
+    <script>
+      // Target launch date: 25 July 2025 00:00:00 (Europe/Istanbul, UTC+3)
+      const launchDate = new Date('2025-07-25T00:00:00+03:00').getTime();
+
+      const el = document.getElementById('countdown');
+
+      function updateTimer() {
+        const now = Date.now();
+        const diff = launchDate - now;
+
+        if (diff <= 0) {
+          el.textContent = 'We are live!';
+          clearInterval(interval);
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        el.textContent = `${days.toString().padStart(2, '0')}d ${hours
+          .toString()
+          .padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds
+          .toString()
+          .padStart(2, '0')}s`;
+      }
+
+      updateTimer();
+      const interval = setInterval(updateTimer, 1000);
+    </script>
+  </body>
+</html>
